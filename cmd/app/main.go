@@ -6,6 +6,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/von-salumbides/go-sls-crud-api/internal/routes"
 	"github.com/von-salumbides/go-sls-crud-api/internal/server"
 	"github.com/von-salumbides/go-sls-crud-api/utils/logger"
 	"go.uber.org/zap"
@@ -19,6 +20,7 @@ func main() {
 		zap.L().Fatal("Shutting down the server", zap.Error(err))
 		os.Exit(1)
 	}
+	routes.Routes(httpServer)
 	go httpServer.Start()
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
